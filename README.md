@@ -30,9 +30,13 @@ If there are any issues, please do not hesitate to contact me.
 
 # Issues
 ## Gifs
-Some may have unwanted transparency glitching, due to technicalities in GIF compiling. [Photosensitive Epilepsy Warning!!!]
-Framerate is slower or faster than actual file, no way to access actual framerate of image.
-The Cancel button while downloading is not functional, use the X in image preview, or in Tag Menu.
-If the Tag Menu keeps refreshing when you try to submit, you haven't changed the file destinations. Refer to setting defaults above.
+1.Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)
+
+2. Framerate is slower or faster than actual file, no way to access actual framerate of image.
+
+3. The Cancel button while downloading is not functional, use the X in image preview, or in Tag Menu.
+
+4. If the Tag Menu keeps refreshing when you try to submit, you haven't changed the file destinations. Refer to setting
+defaults above.
 
 

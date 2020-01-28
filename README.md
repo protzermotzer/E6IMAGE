@@ -26,8 +26,13 @@ savefiledest = '/this/is/another/example'
 
 If there are any issues, please do not hesitate to contact me.
 
+~~N.B. To increase framerate of gif, use up and down to change by 1, and Rshift and RCtrl to change by 10~~
 
-
-
+# Issues
+## Gifs
+Some may have unwanted transparency glitching, due to technicalities in GIF compiling. [Photosensitive Epilepsy Warning!!!]
+Framerate is slower or faster than actual file, no way to access actual framerate of image.
+The Cancel button while downloading is not functional, use the X in image preview, or in Tag Menu.
+If the Tag Menu keeps refreshing when you try to submit, you haven't changed the file destinations. Refer to setting defaults above.
 
 

@@ -22,7 +22,8 @@ To set the default filepaths, go to lines 30 and 31, and replace the double brac
 previewfiledest = '/this/is/an/example'
 savefiledest = '/this/is/another/example'
 ```
-**Make sure neither ends with a forward slash! This is added automatically by the code!**
+**Do not change the double brackets on line 91!**
+**Make sure neither ends with a forward slash, this is added automatically by the code!**
 
 If there are any issues, please do not hesitate to contact me.
 

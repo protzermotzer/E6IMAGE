@@ -183,16 +183,19 @@ while repeat == 1:
                    [sg.Text("Press Y to save or N to next")]
                  ]
             window = sg.Window('My new window', return_keyboard_events=True, use_default_focus=False).Layout(layout)
-            event, values = window.Read()
-            if event == "y:29":
-                save = 'y'
-                window.close()
-            elif event == "n:57":
-                save = 'n'
-                window.close() 
-            elif event is None:
-                window.close()
-                sys.exit()
+            while 1:
+                event, values = window.Read()
+                if event == "y:29":
+                    save = 'y'
+                    window.close()
+                    break
+                elif event == "n:57":
+                    save = 'n'
+                    window.close()
+                    break
+                elif event is None:
+                    window.close()
+                    sys.exit()
         elif filetype in animatedType:
             layout = [  [sg.Text(imageArtist + " " + imageId, font='ANY 15')],
                     [sg.Image(tempPath + '.gif', key='_IMAGE_', tooltip='I am ashamed of you')],

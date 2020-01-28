@@ -10,14 +10,14 @@ pip3 install PySimpleGUI
 pip3 install images2gif
 ```
 
-Once complete, type in:
+Once complete, download the ESIXimage.py file, and type in it's file destination here:
 ```
 python3 /file/path/of/where/you/saved/the/file/to/ESIXimage.py
 ```
 
-The two filepaths at the bottom of the window are for downloading the image to display a resized version, and a directory to store the image, should you decide to save it.
+Upon running the file there are two filepaths at the bottom of the window. The first is for downloading the image to show a preview, and the second is a directory to store the image, should you decide to save it.
 
-To set the default filepaths, go to lines 30 and 31, and replace the double brackets with the respective filepaths.
+To set default filepaths for these two, go to lines 30 and 31, and replace the double brackets with the respective filepaths.
 ```
 previewfiledest = '/this/is/an/example'
 savefiledest = '/this/is/another/example'
@@ -31,13 +31,12 @@ If there are any issues, please do not hesitate to contact me.
 
 # Issues
 ## Gifs
-1.Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)
+- Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)
+- Framerate is slower or faster than actual file, since there's no way to access actual framerate of image.
 
-2. Framerate is slower or faster than actual file, no way to access actual framerate of image.
-
-3. The Cancel button while downloading is not functional, use the X in image preview, or in Tag Menu.
-
-4. If the Tag Menu keeps refreshing when you try to submit, you haven't changed the file destinations. Refer to setting
+## General
+- The Cancel button while downloading is not functional, use the X in image preview, or in Tag Menu.
+- If the Tag Menu keeps refreshing when you try to submit, you haven't changed the file destinations. Refer to setting
 defaults above.
 
 

@@ -12,7 +12,7 @@ pip3 install images2gif
 
 Once complete, type in:
 ```
-python3 /file/path/of/where/you/saved/the/file/to/NOSHELLe621.py
+python3 /file/path/of/where/you/saved/the/file/to/ESIXimage.py
 ```
 
 The two filepaths at the bottom of the window are for downloading the image to display a resized version, and a directory to store the image, should you decide to save it.

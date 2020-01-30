@@ -182,7 +182,7 @@ while repeat == 1:
                     [sg.Text(picPosition, font='ANY 6')],
                    [sg.Text("Press Y to save or N to next")]
                  ]
-            window = sg.Window('My new window', return_keyboard_events=True, use_default_focus=False).Layout(layout)
+            window = sg.Window('Preview Image', return_keyboard_events=True, use_default_focus=False).Layout(layout)
             while 1:
                 event, values = window.Read()
                 if event == "y:29":

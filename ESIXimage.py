@@ -99,9 +99,9 @@ while repeat == 1:
         tags += " rating:s"
     
     limit = values['limit']
-    h = {"User-agent" : "MyProject/1.0 (By WibbleTime on e621"}
+    headers = {"User-agent" : "MyProject/1.0 (By WibbleTime on e621"}
     e621String = "https://e621.net/post/index.json?tags=order:random {0}&limit={1}".format(tags, limit)
-    response = requests.get(e621String, headers = h)
+    response = requests.get(e621String, headers = headers)
     response = response.json()
 
 
@@ -111,13 +111,13 @@ while repeat == 1:
     
     for x in range(len(response)):
         #set picture details
-        imageArtist = ", ".join(response[x]['artist'])
-        imageId = str(response[x]['id'])
-        picPosition = str(x+1) + '/' + str(len(response))
+        imageArtist = ", ".join(response['posts'][x]['tags']['artist'])
+        imageId = str(response['posts'][x]['id'])
+        picPosition = str(x+1) + '/' + str(len(response['posts']))
 
         
         #download picture
-        e621file = response[x]['file_url']
+        e621file = response['posts'][x]['file']['url']
         filetype = (os.path.splitext(e621file))[-1]
         if (filetype in interactiveType) or (filetype in videoType):
             continue

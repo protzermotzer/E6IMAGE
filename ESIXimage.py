@@ -185,11 +185,11 @@ while repeat == 1:
             window = sg.Window('Preview Image', return_keyboard_events=True, use_default_focus=False).Layout(layout)
             while 1:
                 event, values = window.Read()
-                if event == "y:29":
+                if event in ["y:29", 'y', "Y:29", 'Y']:
                     save = 'y'
                     window.close()
                     break
-                elif event == "n:57":
+                elif event in ["n:57", 'n', 'N:57', 'N']:
                     save = 'n'
                     window.close()
                     break
@@ -198,9 +198,9 @@ while repeat == 1:
                     sys.exit()
         elif filetype in animatedType:
             layout = [  [sg.Text(imageArtist + " " + imageId, font='ANY 15')],
-                    [sg.Image(tempPath + '.gif', key='_IMAGE_', tooltip='I am ashamed of you')],
+                    [sg.Image(tempPath + '.gif', key='_IMAGE_', tooltip='you found the secret message!')],
                     [sg.Text(picPosition)],
-                   [sg.Text("Press Y to save or N to next")]
+                   [sg.Text("Press Y to save, N to next, or Esc to go back to menu")]
                  ]
             
             
@@ -211,11 +211,11 @@ while repeat == 1:
             while exit == 0:
                 event, values = window.read(timeout=25)
                 window.Element('_IMAGE_').UpdateAnimation(tempPath + '.gif')
-                if event == "y:29":
+                if event in ["y:29", 'y', "Y:29", 'Y']:
                     save = 'y'
                     window.close()
                     exit=1
-                elif event == "n:57":
+                elif event in ["n:57", 'n', 'N:57', 'N']:
                     save = 'n'
                     window.close()
                     exit=1

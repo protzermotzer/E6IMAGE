@@ -100,7 +100,7 @@ while repeat == 1:
     
     limit = values['limit']
     headers = {"User-agent" : "MyProject/1.0 (By WibbleTime on e621"}
-    e621String = "https://e621.net/post.json?tags=order:random {0}&limit={1}".format(tags, limit)
+    e621String = "https://e621.net/posts.json?tags=order:random {0}&limit={1}".format(tags, limit)
     response = requests.get(e621String, headers = headers)
     response = response.json()
 

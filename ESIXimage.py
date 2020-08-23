@@ -7,7 +7,7 @@ try:
     import images2gif
 except:
     input("You do not have images2gif installed! Terminating program...")
-import images2gif
+    exit()
 try:
     import PIL
 except:

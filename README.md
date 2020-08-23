@@ -36,8 +36,8 @@ Not too difficult, when prompted:
 
 # Issues
 ## ~~Gifs~~ Filetypes other than Image_types (.png, .jpg, etc.)
-~~- Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)
-- Framerate is slower or faster than actual file, since there's no way to access actual framerate of image.~~
+~~- Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)~~
+~~- Framerate is slower or faster than actual file, since there's no way to access actual framerate of image.~~
 Currently files other than images will be skipped and cannot be saved.
 
 ## General

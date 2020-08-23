@@ -5,7 +5,7 @@ Make sure you have a Python compiler, or preferably python3 from the python down
 
 Open your terminal/cmd, type in the following commands, and wait until the modules are downloaded:
 ```
-pip3 install PIL
+pip3 install pillow
 pip3 install PySimpleGUI
 pip3 install images2gif
 ```

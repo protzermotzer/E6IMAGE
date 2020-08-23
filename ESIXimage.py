@@ -3,36 +3,35 @@ import os
 from time import gmtime, strftime
 import urllib.request
 import sys
-try:
-    import images2gif
-except:
-    input("You do not have images2gif installed!")
-    input("Please run \'pip3 install images2gif'\")
-    input("Terminating program...")
-    exit()
+# try:
+#     import images2gif
+# except:
+#     print("You do not have images2gif installed! Terminating program...")
+# import images2gif
+
 try:
     import PIL
 except:
-    input("You do not have PIL installed! Terminating program...")
-    input("Please run \'pip3 install pillow'\")
+    print("You do not have PIL installed! Terminating program...")
     exit()
-from PIL import Image, ImageSequence
+from PIL import Image, ImageSequence, ImageTk
 import subprocess
 import requests
 try:
     import PySimpleGUI
 except:
-    input("You do not have PySimpleGUI installed! Terminating Program...")
-    input("Please run \'pip3 install pysimplegui'\")
+    print("You do not have PySimpleGUI installed! Terminating Program...")
     exit()
 import PySimpleGUI as sg
 import json
 import time
 import shutil
 import tkinter
+import keyboard
 
-previewfiledest = '[[SET DEFAULT HERE]]'
-savefiledest = '[[SET DEFAULT HERE]]'
+
+previewfiledest = 'preview_dest'
+savefiledest = 'save_dest'
 
 imageType = [
     ".png",
@@ -58,75 +57,73 @@ interactiveType = [
     ".swf"
 ]
 
+
+# Get screen dimensions
 root = tkinter.Tk()
 root.withdraw()
 WIDTH, HEIGHT = root.winfo_screenwidth(), root.winfo_screenheight()
 
+# Visuals for downloading
 def download_progress_hook(count, blockSize, totalSize):
     sg.OneLineProgressMeter('Image Loading Now...',  count*blockSize, totalSize, 'key')
+    if keyboard.is_pressed('esc'):
+        return 0
 
-    
+# For debug
 def jprint(obj):
     text = json.dumps(obj, indent = 4)
     print(text)
 
 
-
+# Create image generation loop
 repeat = 1
 while repeat == 1:        
-    sg.theme("Reddit")
-    fileschanged = 0
-    while fileschanged == 0:
-        layout = [ [sg.Text("Tags"), sg.InputText(key='tags')],
-                   [sg.Text("Amount of posts"), sg.InputText(key='limit')],
-                   [sg.Checkbox("Safemode", key='safe')],
-                   [sg.Submit(), sg.Cancel()],
-                   [sg.Text("_" * 80)],
-                   [sg.Text('Select file to temporarily store images', font='ALL 7', auto_size_text=False, justification='right'), sg.InputText(previewfiledest), sg.FolderBrowse()],      
-        [sg.Text('Select file to save images to', font='ALL 7', auto_size_text=False, justification='right'), sg.InputText(savefiledest), sg.FolderBrowse()],     
-        
-        ]
-        
-        window = sg.Window("e621 Image Gen", layout)
-        event, values = window.read()
 
-        window.close()
-        
-        if values[0] != '[[SET DEFAULT HERE]]' and values[1] != '[[SET DEFAULT HERE]]':
-            fileschanged = 1
-        
-        tempPath = values[0] + '/downloadedimageforesix'
-        destPath = values[1]
+    tags = input('What tags? >')
+    limit = input('How many images? (Max 230) >')
+    safemode = input('Safemode? [0/1] >')
     
-    tags = values['tags']
-    if values['safe'] == True:
+    # save destinations
+    tempPath = previewfiledest + '/downloadedimageforesix'
+    destPath = savefiledest
+    
+    # safemode
+    if safemode == '1':
         tags += " rating:s"
     
-    limit = values['limit']
+    # Handle json requests and data
     headers = {"User-agent" : "MyProject/1.0 (By WibbleTime on e621"}
     e621String = "https://e621.net/posts.json?tags=order:random {0}&limit={1}".format(tags, limit)
     response = requests.get(e621String, headers = headers)
     response = response.json()
 
-
+    # If no results
     nothing = 0
     if(len(response))== 0:
         nothing = 1
     
-    for x in range(len(response)):
-        #set picture details
+    # loop through results
+    for x in range(len(response['posts'])):
+        #set picture details from json
         imageArtist = ", ".join(response['posts'][x]['tags']['artist'])
         imageId = str(response['posts'][x]['id'])
         picPosition = str(x+1) + '/' + str(len(response['posts']))
 
         
-        #download picture
+        #download picture from url in json
         e621file = response['posts'][x]['file']['url']
+        if e621file is None:
+            continue
+        
+        # Is filetype displayable? i.e. not .webm or .swf
         filetype = (os.path.splitext(e621file))[-1]
         if (filetype in interactiveType) or (filetype in videoType):
             continue
+        
+        # Download data
         actualfile = urllib.request.urlretrieve(e621file, ((tempPath)), reporthook=download_progress_hook)
-
+        
+        # Resize image
         im = Image.open(tempPath)
         width, height = im.size
         ratio = height/width
@@ -146,7 +143,8 @@ while repeat == 1:
 
             # Open source
             im = Image.open(tempPath)
-
+            
+            # For .GIF: Calculate framerate + resize EACH frame
             def framerate(im):
                 n = 0
                 while 1:
@@ -174,58 +172,39 @@ while repeat == 1:
             om.info = im.info # Copy sequence info
             om.save(tempPath + '.gif' , save_all=True, append_images=list(frames))
             im = Image.open(tempPath)
-
+        
+        
+        # Change the filename for the preview depending on the extension
         if filetype in badImageType:
             im.save(tempPath + '.png')
         if filetype in imageType:
             im.save(tempPath + '.png')
 
-        if filetype in imageType : 
-            layout = [  [sg.Text(imageArtist + " " + imageId, font='ANY 15')],
-                    [sg.Image(tempPath + '.png', key='_IMAGE_', tooltip='I am ashamed of you')],
-                    [sg.Text(picPosition, font='ANY 6')],
-                   [sg.Text("Press Y to save or N to next")]
-                 ]
-            window = sg.Window('Preview Image', return_keyboard_events=True, use_default_focus=False).Layout(layout)
-            while 1:
-                event, values = window.Read()
-                if event in ["y:29", 'y', "Y:29", 'Y']:
-                    save = 'y'
-                    window.close()
-                    break
-                elif event in ["n:57", 'n', 'N:57', 'N']:
-                    save = 'n'
-                    window.close()
-                    break
-                elif event is None:
-                    window.close()
-                    sys.exit()
+        if filetype in imageType :
+            file_extension = 'png'
         elif filetype in animatedType:
-            layout = [  [sg.Text(imageArtist + " " + imageId, font='ANY 15')],
-                    [sg.Image(tempPath + '.gif', key='_IMAGE_', tooltip='you found the secret message!')],
-                    [sg.Text(picPosition)],
-                   [sg.Text("Press Y to save, N to next, or Esc to go back to menu")]
-                 ]
+            file_extension = 'gif'
+            
+        root = tkinter.Toplevel()
+        canvas = tkinter.Canvas(root, width = newW, height = newH)
+        canvas.pack()
+        img = ImageTk.PhotoImage(Image.open(f'preview_dest/downloadedimageforesix.{file_extension}'))
+        canvas.create_image(0, 0, anchor = 'nw', image = img)
+        root.update()
+        
+        key_pressed = False
+        while not key_pressed:
+       
+            if keyboard.is_pressed('y'):
+                save = 'y'
+                key_pressed = True
+            elif keyboard.is_pressed('n'):
+                save = 'n'
+                key_pressed = True
+        
+        root.destroy()
             
             
-            window = sg.Window('My new window', return_keyboard_events=True, use_default_focus=False).Layout(layout)
-            
-            exit = 0
-
-            while exit == 0:
-                event, values = window.read(timeout=25)
-                window.Element('_IMAGE_').UpdateAnimation(tempPath + '.gif')
-                if event in ["y:29", 'y', "Y:29", 'Y']:
-                    save = 'y'
-                    window.close()
-                    exit=1
-                elif event in ["n:57", 'n', 'N:57', 'N']:
-                    save = 'n'
-                    window.close()
-                    exit=1
-                elif event is None:
-                    window.close()
-                    sys.exit()
 
         if save == "y":
             if filetype == ".gif":
@@ -237,17 +216,12 @@ while repeat == 1:
     message = "Search Again?"
     if nothing == 1:
         message = "No results :( \nSearch again?"
-    againLayout = [ [sg.Text(message)],
-                    [sg.Yes("Yes [Y]",focus=True), sg.No("No [n]")]
-    ]
-    window = sg.Window("e621 Image Gen", againLayout, return_keyboard_events=True)
-    events, values = window.read()
-    if events == "y:29" or events == 'Return:36' or events == "Yes":
+    
+    search_again = input(message + ' [0/1] >')
+    
+    if search_again == '1':
         repeat = 1
     #again = input("Again? [Y/n] ")
     #if again != "":
     else:
         repeat = 0
-    window.close()
-
-    

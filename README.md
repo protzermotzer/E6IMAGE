@@ -10,10 +10,7 @@ pip3 install PySimpleGUI
 pip3 install images2gif
 ```
 
-Once complete, download the ESIXimage.py file, and type in it's file destination here:
-```
-python3 /file/path/of/where/you/saved/the/file/to/ESIXimage.py
-```
+Once complete, edit the file in your favourite code editor.
 
 Upon running the file there are two filepaths at the bottom of the window. The first is for downloading the image to show a preview, and the second is a directory to store the image, should you decide to save it.
 

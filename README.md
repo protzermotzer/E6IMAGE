@@ -12,7 +12,7 @@ pip3 install images2gif
 
 Once complete, edit the file in your favourite code editor.
 
-Upon running the file there are two filepaths at the bottom of the window. The first is for downloading the image to show a preview, and the second is a directory to store the image, should you decide to save it.
+Upon opening the file there are two filepaths at the bottom of the window. The first is for downloading the image to show a preview, and the second is a directory to store the image, should you decide to save it.
 
 To set default filepaths for these two, go to lines 30 and 31, and replace the double brackets with the respective filepaths.
 ```

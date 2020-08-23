@@ -6,12 +6,15 @@ import sys
 try:
     import images2gif
 except:
-    input("You do not have images2gif installed! Terminating program...")
+    input("You do not have images2gif installed!")
+    input("Please run \'pip3 install images2gif'\")
+    input("Terminating program...")
     exit()
 try:
     import PIL
 except:
     input("You do not have PIL installed! Terminating program...")
+    input("Please run \'pip3 install pillow'\")
     exit()
 from PIL import Image, ImageSequence
 import subprocess
@@ -20,6 +23,7 @@ try:
     import PySimpleGUI
 except:
     input("You do not have PySimpleGUI installed! Terminating Program...")
+    input("Please run \'pip3 install pysimplegui'\")
     exit()
 import PySimpleGUI as sg
 import json

@@ -7,7 +7,7 @@ Open your terminal/cmd, type in the following commands, and wait until the modul
 ```
 pip3 install pillow
 pip3 install PySimpleGUI
-pip3 install images2gif
+pip3 install keyboard
 ```
 
 Once complete, edit the file in your favourite code editor.
@@ -25,15 +25,21 @@ savefiledest = '/this/is/another/example'
 If there are any issues, please do not hesitate to contact me.
 
 ~~N.B. To increase framerate of gif, use up and down to change by 1, and Rshift and RCtrl to change by 10~~
+# Usage
+Not too difficult, when prompted: 
+- Input whatever tags you want to look up
+- Input the amount of images you'd like to recieve
+- Input whether you'd like the results to be SFW (`0`) or NSFW (`1`)
+
+- When shown the images, press either `y` or `n` save the image in the specified directory, or to skip the image. These do not need to be inputted in the terminal as they are parsed immediately.
+
 
 # Issues
-## Gifs
-- Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)
-- Framerate is slower or faster than actual file, since there's no way to access actual framerate of image.
+## ~~Gifs~~ Filetypes other than Image_types (.png, .jpg, etc.)
+~~- Some may have unwanted transparency glitching, due to technicalities in GIF compiling. (Photosensitive Epilepsy Warning!!!)
+- Framerate is slower or faster than actual file, since there's no way to access actual framerate of image.~~
+Currently files other than images will be skipped and cannot be saved.
 
 ## General
-- The Cancel button while downloading is not functional, use the X in image preview, or in Tag Menu.
-- If the Tag Menu keeps refreshing when you try to submit, you haven't changed the file destinations. Refer to setting
-defaults above.
-
+- When downloading, the visualiser's cancel button and close window button do not function properly. Please close the python window in order to stop termination.
 

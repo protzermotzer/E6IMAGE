@@ -41,5 +41,5 @@ Not too difficult, when prompted:
 Currently files other than images will be skipped and cannot be saved.
 
 ## General
-- When downloading, the visualiser's cancel button and close window button do not function properly. Please close the python window in order to stop termination.
+- When downloading, the visualiser's cancel button and close window button do not function properly. Please close the python window in order to end the program.
 
